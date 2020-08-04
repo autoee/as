@@ -8,10 +8,10 @@ ASROOT = asenv['ASROOT']
 MODULES=asenv['MODULES']
 
 download = '%s/release/download'%(ASROOT)
-lwip=Package('git://git.savannah.nongnu.org/lwip.git', version='STABLE-1_4_1')
+lwip=Package('https://github.com/autoee/lwip.git', version='STABLE-1_4_1')
 cmd = 'sed -i "22c #include <ddk/ntddndis.h>" ports/win32/pcapif_helper.c'
 cmd += ' && sed -i "150c //    abort();" ports/unix/sys_arch.c'
-lwipc=Package('git://git.savannah.nongnu.org/lwip/lwip-contrib.git', cmd=cmd, version='STABLE-1_4_1')
+lwipc=Package('https://github.com/autoee/lwip-contrib.git', cmd=cmd, version='STABLE-1_4_1')
 
 MKSymlink('%s/ports/win32/lwipcfg_msvc.h.example'%(lwipc),
           '%s/ports/win32/lwipcfg_msvc.h'%(lwipc))
