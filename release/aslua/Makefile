@@ -195,7 +195,7 @@ endif
 
 ldflags-y += -lpthread
 
-ZLGCAN?=$(wildcard $(download)/CAN_lib/CAN*)
+ZLGCAN?=$(wildcard $(download)/CAN_lib/ControlCAN*)
 
 ifeq ($(host), Linux)
 else
@@ -203,9 +203,9 @@ ldflags-y += -lwsock32
 inc-y += -I$(download)/pcan-basic/"PCAN-Basic API"/Include
 
 ifeq ($(ISMINGW64),YES)
-inc-y += -I$(ZLGCAN)/ControlCAN/64
+inc-y += -I$(ZLGCAN)/ControlCANx64
 else
-inc-y += -I$(ZLGCAN)/ControlCAN/32
+inc-y += -I$(ZLGCAN)/ControlCANx32
 endif
 endif
 # --------------------------------- [ BUILD ACTIONs ] ------------------------------------------- #
@@ -233,13 +233,13 @@ dep-canlib:
 ifeq ($(host), Linux)
 else
 ifeq ($(ISMINGW64),YES)
-	@(cp -fv $(ZLGCAN)/ControlCAN/64/ControlCAN.dll $(prj-dir)/com/as.tool/as.one.py)
+	@(cp -fv $(ZLGCAN)/ControlCANx64/ControlCAN.dll $(prj-dir)/com/as.tool/as.one.py)
 	@(cp -fv $(download)/pcan-basic/"PCAN-Basic API"/x64/PCANBasic.dll $(prj-dir)/com/as.tool/as.one.py)
 else
-	@(cp -fv $(ZLGCAN)/ControlCAN/32/ControlCAN.dll $(prj-dir)/com/as.tool/as.one.py)
+	@(cp -fv $(ZLGCAN)/ControlCANx32/ControlCAN.dll $(prj-dir)/com/as.tool/as.one.py)
 	@(cp -fv $(download)/pcan-basic/"PCAN-Basic API"/Win32/PCANBasic.dll $(prj-dir)/com/as.tool/as.one.py)
 endif
-	@(cp -fv $(ZLGCAN)/ControlCAN/64/ControlCAN.lib /mingw64/lib)
+	@(cp -fv $(ZLGCAN)/ControlCANx64/ControlCAN.lib /mingw64/lib)
 endif
 
 dep-posix: aslibaws
@@ -247,10 +247,10 @@ ifeq ($(host),Linux)
 else
 ifeq ($(ISMINGW64),YES)
 	@(cd $(src-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/x64/VC_LIB/PCANBasic.lib .)
-	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCAN/64/ControlCAN.lib .)
+	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCANx64/ControlCAN.lib .)
 else
 	@(cd $(src-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/Win32/VC_LIB/PCANBasic.lib .)
-	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCAN/32/ControlCAN.lib .)
+	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCANx32/ControlCAN.lib .)
 endif
 endif
 	@(echo "  >> prepare link for posix done")
@@ -261,10 +261,10 @@ ifeq ($(host),Linux)
 else
 ifeq ($(ISMINGW64),YES)
 	@(cd $(exe-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/x64/VC_LIB/PCANBasic.lib libPCANBasic.a)
-	@(cd $(exe-dir);cp -f $(ZLGCAN)/ControlCAN/64/ControlCAN.lib libZLGCAN.a)
+	@(cd $(exe-dir);cp -f $(ZLGCAN)/ControlCANx64/ControlCAN.lib libZLGCAN.a)
 else
 	@(cd $(exe-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/Win32/VC_LIB/PCANBasic.lib libPCANBasic.a)
-	@(cd $(exe-dir);cp -f $(ZLGCAN)/ControlCAN/32/ControlCAN.lib libZLGCAN.a)
+	@(cd $(exe-dir);cp -f $(ZLGCAN)/ControlCANx32/ControlCAN.lib libZLGCAN.a)
 endif
 endif
 ifeq ($(USE_AWS),YES)
@@ -279,10 +279,10 @@ ifeq ($(host),Linux)
 else
 ifeq ($(ISMINGW64),YES)
 	@(cd $(src-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/x64/VC_LIB/PCANBasic.lib libPCANBasic.a)
-	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCAN/64/ControlCAN.lib libZLGCAN.a)
+	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCANx64/ControlCAN.lib libZLGCAN.a)
 else
 	@(cd $(src-dir);cp -f $(download)/pcan-basic/"PCAN-Basic API"/Win32/VC_LIB/PCANBasic.lib libPCANBasic.a)
-	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCAN/32/ControlCAN.lib libZLGCAN.a)
+	@(cd $(src-dir);cp -f $(ZLGCAN)/ControlCANx32/ControlCAN.lib libZLGCAN.a)
 endif
 endif
 	@(make pysip)
